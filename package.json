@@ -14,6 +14,25 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"configuration": {
+			"title": "Terraform Provider Debugger",
+			"properties": {
+				"terraformProviderDebugger.totalListenTime": {
+					"type": "number",
+					"default": 600,
+					"description": "Specifies total times (seconds) this extension will listen for specific process name."
+				},
+				"terraformProviderDebugger.listenInterval": {
+					"type": "number",
+					"default": 1,
+					"description": "Specifies times interval this extension will listen for specific process name."
+				},
+				"terraformProviderDebugger.processName": {
+					"type": "string",
+					"description": "Specifies the process name you want to attach."
+				}
+			}
+		},
 		"commands": [
 			{
 				"command": "extension.helloWorld",
@@ -33,10 +52,15 @@
 		"@types/mocha": "^5.2.6",
 		"@types/node": "^10.12.21",
 		"@types/vscode": "^1.40.0",
+		"@types/lodash": "^4.14.121",
 		"glob": "^7.1.4",
 		"mocha": "^6.1.4",
 		"typescript": "^3.3.1",
 		"tslint": "^5.12.1",
 		"vscode-test": "^1.2.0"
+	},
+	"dependencies": {
+		"find-process": "^1.4.3",
+		"lodash": "^4.17.13"
 	}
 }

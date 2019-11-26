@@ -1,11 +1,14 @@
 import * as vscode from 'vscode';
 import {getPidByName} from './processUtils'
+import {listenLocalProcessPeriodly} from "./timer"
+import {getWorkspaceFolder} from "./workspaceUtils"
+import {writeLaunchConfiguration} from "./debugUtils"
 
 export function activate(context: vscode.ExtensionContext) {
 
 	let disposable = vscode.commands.registerCommand('extension.helloWorld', async () => {
-		// vscode.window.showInformationMessage('Hello World!');
-		await getPidByName("wininit.exe")
+		writeLaunchConfiguration(123);
+		listenLocalProcessPeriodly();
 	});
 
 	context.subscriptions.push(disposable);
