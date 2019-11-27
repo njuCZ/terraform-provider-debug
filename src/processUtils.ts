@@ -1,4 +1,5 @@
-import * as vscode from 'vscode';
+import {writeLaunchConfiguration} from "./debugUtils"
+
 import find = require("find-process");
 
 export async function getPidByName(processName: string, interval: NodeJS.Timeout){
@@ -15,15 +16,10 @@ export async function getPidByName(processName: string, interval: NodeJS.Timeout
         }
         let p = list[0]
         clearInterval(interval);
-        console.log(p.pid);
-        return
+        console.log("successfully find process " + p.pid +" with name: " + processName)
+
+        writeLaunchConfiguration(p.pid);
     }, function (err) {
         console.log(err.stack || err);
     })
-  
-    //         vscode.window.showErrorMessage('can not find process by name: ' + processName)
-    //     });
-    // } else {
-    //     vscode.window.showInformationMessage('currently only windows is supported!');
-    // }
 }

@@ -60,7 +60,6 @@
 		"vscode-test": "^1.2.0"
 	},
 	"dependencies": {
-		"find-process": "^1.4.3",
-		"lodash": "^4.17.13"
+		"find-process": "^1.4.3"
 	}
 }

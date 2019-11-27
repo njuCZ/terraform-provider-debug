@@ -1,5 +1,7 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
+import * as _ from "lodash";
+import {getWorkspaceFolder} from "./workspaceUtils"
 
 const fs = require('fs');
 
@@ -13,8 +15,8 @@ let attachConfig = {
 
 export function writeLaunchConfiguration(pid: number){
     attachConfig.processId = pid;
-
-    let dir: string =  path.join(vscode.workspace.rootPath || "", ".vscode")
+    let rootPath: string = getWorkspaceFolder() || "";
+    let dir: string =  path.join(rootPath || "", ".vscode")
 
     if (!fs.existsSync(dir)){
         fs.mkdirSync(dir);
@@ -28,11 +30,20 @@ export function writeLaunchConfiguration(pid: number){
             "configurations":[ attachConfig ]
         }
     } else {
-        fileJson = require('launchFile');
-        fileJson.configurations.add(attachConfig)
+        fileJson = require(launchFile);
+        
+        let configList: Map<string, any> = fileJson.configurations.filter(config => config.name === attachConfig.name)
+        if(_.isEmpty(configList)){
+            fileJson.configurations.add(attachConfig)    
+        } else {
+            configList[0].processId = pid
+        }
     }
     fs.writeFile(launchFile, JSON.stringify(fileJson, null, 2), function (err: any, data: any) { 
         if (err) throw err;
-        console.log(data + ' saved!');
+        vscode.debug.startDebugging(vscode.workspace.workspaceFolders[0], attachConfig.name)
+            .then(function(bool){
+                console.log("start debug: " + bool);
+            })
     })
 }
