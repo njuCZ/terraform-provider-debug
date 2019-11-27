@@ -1,15 +1,7 @@
 import {writeLaunchConfiguration} from "./debugUtils"
-
 import find = require("find-process");
 
 export async function getPidByName(processName: string, interval: NodeJS.Timeout){
-    if(processName === undefined){
-        return;
-    }
-    processName = processName.trim();
-    if (processName === ""){
-        return;
-    }
     find('name', processName, true).then(function (list) {
         if(list.length == 0){
             return;

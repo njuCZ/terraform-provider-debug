@@ -10,7 +10,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"onCommand:terraformProviderDebug.attachLocalProcess"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -26,17 +26,13 @@
 					"type": "number",
 					"default": 1,
 					"description": "Specifies times interval this extension will listen for specific process name."
-				},
-				"terraformProviderDebugger.processName": {
-					"type": "string",
-					"description": "Specifies the process name you want to attach."
 				}
 			}
 		},
 		"commands": [
 			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
+				"command": "terraformProviderDebug.attachLocalProcess",
+				"title": "Terraform Debug: attach to local terraform provider process"
 			}
 		]
 	},

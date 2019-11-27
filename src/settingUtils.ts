@@ -8,7 +8,3 @@ export function getListenInterval(): number {
     return vscode.workspace.getConfiguration().get("terraformProviderDebugger.listenInterval") || 1;
 }
 
-export function getProcessName(): string {
-    return vscode.workspace.getConfiguration().get("terraformProviderDebugger.processName") || "";
-}
-
